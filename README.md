@@ -16,8 +16,11 @@ var HDWalletProvider = require("truffle-hdwallet-provider");
 var mnemonic = "opinion destroy betray ..."; // 12 word mnemonic
 var provider = new HDWalletProvider(mnemonic, "http://localhost:8545");
 
-// Or, alternatively pass in a zero-based address index.
-var provider = new HDWalletProvider(mnemonic, "http://localhost:8545", 5);
+// if you need a different HD Path,
+var provider = new HDWalletProvider(mnemonic, "http://localhost:8545", "m/0'/0'/0'");
+
+// if you want to use a specific key pair pass in a zero based index
+var provider = new HDWalletProvider(mnemonic, "http://localhost:8545","m/0'/0'/0'", 5);
 ```
 
 By default, the `HDWalletProvider` will use the address of the first address that's generated from the mnemonic. If you pass in a specific index, it'll use that address instead. Currently, the `HDWalletProvider` manages only one address at a time, but it can be easily upgraded to manage (i.e., "unlock") multiple addresses.
@@ -26,6 +29,7 @@ Parameters:
 
 - `mnemonic`: `string`. 12 word mnemonic which addresses are created from.
 - `provider_uri`: `string`. URI of Ethereum client to send all other non-transaction-related Web3 requests.
+- `hdpath` : `string`. HD Wallet Path, if none provided it will default to m/44'/60'/0'/0/ (standard for Ethereum accounts)
 - `address_index`: `number`, optional. If specified, will tell the provider to manage the address at the index specified. Defaults to the first address (index `0`).
 
 ## Truffle Usage
